@@ -1,5 +1,5 @@
 from handlers.users.start import bot_start
-from handlers.users.menu_handlers import show_inline_menu
+from handlers.users.menu_handlers import show_inline_menu, show_waht_now
 
 from aiogram import executor
 
