@@ -1,7 +1,7 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from keyboards.inline.callback_datas import start_choice
 
-choise_start_menu = InlineKeyboardMarkup(
+kb_start_menu = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(text="Что сейчас происходит", callback_data=start_choice.new(

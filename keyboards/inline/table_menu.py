@@ -2,7 +2,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from keyboards.inline.callback_datas import table_choice
 
 
-choice_table_menu = InlineKeyboardMarkup(
+kb_table_menu = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(text="Кубок фестиваля", callback_data=table_choice.new(
