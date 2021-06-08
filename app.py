@@ -1,5 +1,7 @@
+import utils
 from handlers.users.start import bot_start
-from handlers.users.menu_handlers import show_inline_menu, show_waht_now
+from handlers.users.menu_handlers import show_inline_menu, show_what_now
+from utils.db_api import sqlighter
 
 from aiogram import executor
 
@@ -16,7 +18,6 @@ async def on_startup(dispatcher):
 
     # Уведомляет про запуск
     await on_startup_notify(dispatcher)
-    
     
 
 if __name__ == '__main__':
