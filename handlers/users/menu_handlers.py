@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Text
 from keyboards.inline import callback_datas
 import logging
@@ -30,10 +31,23 @@ async def show_what_now(call: types.CallbackQuery):
     await call.answer(cache_time=360)
     callback_data = call.data
     logging.info(f"{callback_data=}")
-    rq = SQL.request_what_now()
+    # rq = SQL.request_what_now()
+
+    # Получение самого раннего и самого познего события фестиваля
+    dt_start = SQL.find_date_start()
+    dt_end = SQL.find_date_end()
+    # tdate = datetime.now().strftime('%d.%m %H:%M')
+    tdate = datetime(2021, 6, 19, 14, 50).strftime('%d.%m %H:%M')
+    if tdate < dt_start:
+        await call.message.answer("😁 Фестиваль еще не начался, \nвозвращайся сюда 18 июня!")
+    elif tdate > dt_end:
+        await call.message.answer("☹ К сожелению, фестиваль уже прошел.\nУвидимся в следующем году! 😁")
+    else:
+        await call.message.answer(card.card_what_now())
+
 
     #TODO: заменить SQL.request_what_now на промежуточную функцию, которая будет преобразовывать ответ телеграмма в карточку событи. см.try.py
-    await call.message.answer(card.create_card(rq))
+    
     
 
 @dp.callback_query_handler(text_contains="full_schedule")
@@ -48,7 +62,7 @@ async def show_full_schedule(call: types.CallbackQuery):
     callback_data = call.data
     logging.info(f"{callback_data=}")
 
-    await call.message.answer("полное рассписание")
+    await call.message.answer(card.full_schedule())
     # TODO: Реализвать обращение к базе данных и вывод всего расписания мероприятий
 
 @dp.callback_query_handler(text_contains="table")

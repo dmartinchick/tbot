@@ -15,7 +15,7 @@ class SQLighter:
         )
         self.cur = self.myconn.cursor()
 
-    def request_what_now(self):
+    def what_now(self):
         tdate = datetime(2021, 6, 18, 14, 50)
         #TODO: заменить tdate с ручного на строчку ниже
         # self.tdate = datetime.today()
@@ -24,6 +24,17 @@ class SQLighter:
                         "WHERE time_start <= '%s' AND time_end >= '%s'" % (tdate, tdate))
         self.result = self.cur.fetchall()
         return self.result
+
+
+    def find_date_start(self):
+        self.cur.execute("SELECT MIN(time_start) FROM schedule;")
+        self.result = self.cur.fetchone()
+        return self.result[0].strftime('%d.%m %H:%M')
+    
+    def find_date_end(self):
+        self.cur.execute("SELECT MAX(time_end) FROM schedule;")
+        self.result = self.cur.fetchone()
+        return self.result[0].strftime('%d.%m %H:%M')
     
         
     def rq_try(self):
