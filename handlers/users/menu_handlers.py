@@ -1,5 +1,10 @@
+from aiogram.types.message import Message
+from data.config import ADMINS
 from datetime import datetime
 from typing import Text
+
+from aiogram.dispatcher.filters.builtin import CommandSettings
+from aiogram.types.user import User
 from keyboards.inline import callback_datas
 import logging
 from aiogram import types
@@ -16,9 +21,25 @@ from keyboards.inline.table_menu import kb_table_menu
 from utils.db_api.sqlighter import SQL
 from utils.misc import card
 
-@dp.message_handler(Command("Меню"))
+@dp.message_handler(commands=['Меню','menu'], commands_prefix=['⠀','/'])
 async def show_inline_menu(message: types.Message):
     await message.answer("О чем тебе рассказать?", reply_markup=kb_start_menu)
+
+
+@dp.message_handler(Command("festival_admin_microlabML2160"))
+async def show_inline_admin_panel(message: types.Message):
+    """Функция вызова меню администратора
+
+    Args:
+        message (types.Message): [description]
+    """
+    message_user = str(User.get_current()['id'])
+    
+    if message_user in ADMINS:
+        await message.answer("Меню администратора")
+    else:
+        await message.answer("К сожелению данное меню доступно только администратору")
+
 
 @dp.callback_query_handler(text_contains="what_now")
 async def show_what_now(call: types.CallbackQuery):
@@ -47,7 +68,6 @@ async def show_what_now(call: types.CallbackQuery):
 
 
     #TODO: заменить SQL.request_what_now на промежуточную функцию, которая будет преобразовывать ответ телеграмма в карточку событи. см.try.py
-    
     
 
 @dp.callback_query_handler(text_contains="full_schedule")

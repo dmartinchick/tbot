@@ -1,5 +1,6 @@
-from datetime import datetime
-from utils.db_api.sqlighter import SQL
+from data.config import ADMINS
 
 
-print(datetime.now().strftime('%d.%m %H:%M'))
+admin = '466138751'
+
+print(admin in ADMINS)
