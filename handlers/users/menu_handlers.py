@@ -1,3 +1,4 @@
+import data
 from aiogram.types.message import Message
 from data.config import ADMINS
 from datetime import datetime
@@ -26,7 +27,7 @@ async def show_inline_menu(message: types.Message):
     await message.answer("О чем тебе рассказать?", reply_markup=kb_start_menu)
 
 
-@dp.message_handler(Command("festival_admin_microlabML2160"))
+@dp.message_handler(Command("f_admin_microlabML2160"))
 async def show_inline_admin_panel(message: types.Message):
     """Функция вызова меню администратора
 
@@ -63,8 +64,10 @@ async def show_what_now(call: types.CallbackQuery):
         await call.message.answer("😁 Фестиваль еще не начался, \nвозвращайся сюда 18 июня!")
     elif tdate > dt_end:
         await call.message.answer("☹ К сожелению, фестиваль уже прошел.\nУвидимся в следующем году! 😁")
-    else:
-        await call.message.answer(card.card_what_now())
+    else:       
+        await call.message.answer_photo(photo=open(r'data\img\1851521_850x500_fit-1433194394.jpg','rb'),caption=card.card_what_now())
+        # await call.message.answer(card.card_what_now())
+        # await call.message.answer_media_group()
 
 
     #TODO: заменить SQL.request_what_now на промежуточную функцию, которая будет преобразовывать ответ телеграмма в карточку событи. см.try.py
