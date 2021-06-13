@@ -1,4 +1,6 @@
 from os import close
+
+from marshmallow.fields import Int
 from data import config
 from datetime import datetime
 import mysql.connector
@@ -31,9 +33,19 @@ class SQLighter:
         return self.result
         close(self)
 
-    #TODO: оеализовать функцию
+    #TODO: реализовать функцию result_info
     def result_info(self):
         pass
+
+    #TODO: Реализовать функцию event_info
+    def event_info(self, event_name):
+        """Принимает название конкурса и возвращает подробную информацию о конкурсе
+
+        Args:
+            event_name ([type]): Название конкурса
+        """
+        pass
+
 
     def find_date_start(self):
         self.cur.execute("SELECT MIN(time_start) FROM schedule;")
@@ -46,8 +58,22 @@ class SQLighter:
         self.result = self.cur.fetchone()
         return self.result[0].strftime('%d.%m %H:%M')
     
+
+    def get_users(self):
+        self.cur.execute("SELECT user_id FROM users;")
+        self.result = self.cur.fetchall()
+        return self.result
+        close(self)
         
     # Методы добавления данных
+    def set_users(self, user):
+        """Добавляет пользователя в БД в таблицу Users
 
+        Args:
+            user (Int): Индитификатор пользователя
+        """
+        self.cur.execute(f"INSERT INTO users(user_id) VALUES ({user});")
+        self.myconn.commit()
+        
 
 SQL = SQLighter()

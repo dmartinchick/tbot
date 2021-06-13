@@ -18,6 +18,7 @@ from loader import dp
 # from keyboards.inline.callback_datas import start_choice
 from keyboards.inline.start_menu import kb_start_menu
 from keyboards.inline.table_menu import kb_table_menu
+from keyboards.inline.event_info import kb_event_card_info
 
 from utils.db_api.sqlighter import SQL
 from utils.misc import card
@@ -79,14 +80,10 @@ async def show_what_now(call: types.CallbackQuery):
             contains = event[4]
             
             # отправка сообщения с информацией о конкурсе
-            await call.message.answer_photo(photo=open(address,'rb'),caption="❗" + event_name)
+            await call.message.answer_photo(photo=open(address,'rb'),caption="❗" + event_name, reply_markup=kb_event_card_info)
             # TODO: Реализовать ссылку на подробную информацию о конкурсе
         
         # TODO: Реализовать отображения ближайшего мерпрития
-
-
-
-    #TODO: заменить SQL.request_what_now на промежуточную функцию, которая будет преобразовывать ответ телеграмма в карточку событи. см.try.py
     
 
 @dp.callback_query_handler(text_contains="full_schedule")
@@ -162,5 +159,36 @@ async def show_about_info(call: types.CallbackQuery):
     logging.info(f"{callback_data}")
 
     await call.message.answer_document(document=open(r'data\docs\svarog2021_rule.pdf','rb'),caption='Положение туристического фестиваля Сварог 2021')
+
+
+@dp.callback_query_handler(text_contains="event_rules")
+async def show_events_rules(call: types.CallbackQuery):
+    """Выводит полноое описание конкурсов
+
+    Args:
+        call (types.CallbackQuery): [description]
+    """
+
+    await call.answer(cache_time=360)
+    callback_data = call.data
+    logging.info(f"{callback_data}")
+
+    # TODO: реализовать азпрос к БД со сбором информации и передача этой инфы в сообщение
+    await call.message.answer_photo(photo=open(r'data\img\body_art.jpg','rb'),caption="данная функция еще не реализована")
+
+
+@dp.callback_query_handler(text_contains="event_info")
+async def show_events_info(call: types.CallbackQuery):
+    """Выводит кратую информация о конкурсе (время начала и время оканчания, количество участников и место старта)
+
+    Args:
+        call (types.CallbackQuery): [description]
+    """
+    await call.answer(cache_time=360)
+    callback_data = call.data
+    logging.info(f"{callback_data}")
+
+    await call.message.answer(text="Данная функция еще не реализована")
+
 
 # TODO: cancel

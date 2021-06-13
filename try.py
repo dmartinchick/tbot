@@ -1,12 +1,16 @@
-import datetime
+from utils.db_api.sqlighter import SQL
 
-rq = [('Техника пешеходного туризма', datetime.datetime(2021, 6, 18, 13, 0), datetime.datetime(2021, 6, 18, 15, 30), 'r"data\\img\\hiking_technique.jpg"', 'cont_hiking_technique')]
 
-for event in rq:
-    event_name = event[0]
-    time_start = event[1].strftime('%d.%m %H:%M')
-    time_end = event[2].strftime('%d.%m %H:%M')
-    address = event[3]
-    contains = event[4]
 
-print(time_start)
+rq = SQL.get_users()
+print (rq)
+li_users = []
+for i in rq:
+    li_users.append(i[0])
+    print(i)
+print(li_users)
+#466138751
+if 466138751 in li_users:
+    print('yes')
+else:
+    print("no")
