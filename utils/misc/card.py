@@ -17,6 +17,19 @@ def card_what_now():
     return answ
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 def full_schedule():
     answ = """
             ---18 июня---\n❕ 13.00-15.30 – Техника пешеходного туризма\n

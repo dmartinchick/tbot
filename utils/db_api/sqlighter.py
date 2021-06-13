@@ -1,3 +1,4 @@
+from os import close
 from data import config
 from datetime import datetime
 import mysql.connector
@@ -15,35 +16,38 @@ class SQLighter:
         )
         self.cur = self.myconn.cursor()
 
+    def close(self):
+        self.myconn.close()
+
+    # Методы извлечения данных
     def what_now(self):
-        tdate = datetime(2021, 6, 18, 14, 50)
+        self.tdate = datetime(2021, 6, 18, 19, 40)
         #TODO: заменить tdate с ручного на строчку ниже
         # self.tdate = datetime.today()
-        self.cur.execute("SELECT name, time_start "
+        self.cur.execute("SELECT name, time_start, time_end, address, contains "
                         "FROM schedule INNER JOIN event ON schedule.name_id = event.id "
-                        "WHERE time_start <= '%s' AND time_end >= '%s'" % (tdate, tdate))
+                        "WHERE time_start <= '%s' AND time_end >= '%s'" % (self.tdate, self.tdate))
         self.result = self.cur.fetchall()
         return self.result
+        close(self)
 
+    #TODO: оеализовать функцию
+    def result_info(self):
+        pass
 
     def find_date_start(self):
         self.cur.execute("SELECT MIN(time_start) FROM schedule;")
         self.result = self.cur.fetchone()
         return self.result[0].strftime('%d.%m %H:%M')
-    
+
+
     def find_date_end(self):
         self.cur.execute("SELECT MAX(time_end) FROM schedule;")
         self.result = self.cur.fetchone()
         return self.result[0].strftime('%d.%m %H:%M')
     
         
-    def rq_try(self):
-        self.cur.execute("SELECT name FROM event WHERE id=3")
-        self.result = self.cur.fetchall()
-        return self.result
-    
+    # Методы добавления данных
 
-    def close(self):
-        self.myconn.close()
 
 SQL = SQLighter()

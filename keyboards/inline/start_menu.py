@@ -18,8 +18,10 @@ kb_start_menu = InlineKeyboardMarkup(
             InlineKeyboardButton(text="Управление подписками", callback_data="start:subscriptions"),
         ],
         [
-            InlineKeyboardButton(text="Отмена", callback_data='cancell'),
-        ]
-        
+            InlineKeyboardButton(text="Поделиться ссылкой", callback_data="start:share"),
+        ],
+        [
+            InlineKeyboardButton(text='О фестивале', callback_data='start:about'),
+        ],        
     ]
 )
