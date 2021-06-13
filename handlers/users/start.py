@@ -12,7 +12,6 @@ from loader import dp
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
 
-    # TODO: проверить работоспособность
     message_user = User.get_current()['id']
     rq = SQL.get_users()
     li_users = []
