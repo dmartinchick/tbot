@@ -9,13 +9,16 @@ kb_start_menu = InlineKeyboardMarkup(
             )),
         ],
         [
+            InlineKeyboardButton(text="Ближайшие меропрития", callback_data="start:what_next"),
+        ],
+        [
             InlineKeyboardButton(text="Полное расписание", callback_data="start:full_schedule"),
         ],
         [
-            InlineKeyboardButton(text="Посмотреть таблицы", callback_data="start:table")
+            InlineKeyboardButton(text="Таблицы результатов", callback_data="start:tables")
         ],
         [
-            InlineKeyboardButton(text="Управление подписками", callback_data="start:subscriptions"),
+            InlineKeyboardButton(text="Карта фестиваля", callback_data="start:festival_map"),
         ],
         [
             InlineKeyboardButton(text="Поделиться ссылкой", callback_data="start:share"),

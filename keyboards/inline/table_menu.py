@@ -10,16 +10,16 @@ kb_table_menu = InlineKeyboardMarkup(
                 )),
         ],
         [
-            InlineKeyboardButton(text="Кубок холдинга", callback_data = "table:holding_cup")
+            InlineKeyboardButton(text="Кубок холдинга", callback_data = "table_result:holding_cup")
         ],
         [
-            InlineKeyboardButton(text="Кубок туризма", callback_data = "table:tourism_cup")
+            InlineKeyboardButton(text="Кубок туризма", callback_data = "table_result:tourism_cup")
         ],
         [
-            InlineKeyboardButton(text="Кубок спорта", callback_data = "table:sports_cup")
+            InlineKeyboardButton(text="Кубок спорта", callback_data = "table_result:sports_cup")
         ],
         [
-            InlineKeyboardButton(text="Кубок культуры", callback_data='table:culture_cuo')
+            InlineKeyboardButton(text="Кубок культуры", callback_data='table_result:culture_cup')
         ]
     ],
 )
