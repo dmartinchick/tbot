@@ -1,3 +1,5 @@
+# - *- coding: utf- 8 - *-
+
 from environs import Env
 
 # Теперь используем вместо библиотеки python-dotenv библиотеку environs
@@ -15,3 +17,4 @@ PORT = env.int("PORT")
 USER = env.str("USER")
 PASSWORD = env.str("PASSWORD")
 DB = env.str("DB")
+

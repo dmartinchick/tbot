@@ -17,8 +17,7 @@ async def show_festival_cup_result(call: types.CallbackQuery):
     callback_data = call.data
     logging.info(f"{callback_data=}")
 
-    # TODO: добавить клавиатуру с результатами конкурсов в кубке туризма
-    await call.message.answer_photo(photo=open(r"data\img\festival_cup.jpg",'rb'),caption="Кубок туризма")
+    await call.message.answer_photo(photo=open(r"data\img\festival_cup.jpg",'rb'),caption="Кубок фестиваля")
 
 
 @dp.callback_query_handler(text_contains="holding_cup")
@@ -29,8 +28,7 @@ async def show_holding_cup_result(call: types.CallbackQuery):
     callback_data = call.data
     logging.info(f"{callback_data=}")
 
-    # TODO: добавить клавиатуру с результатами конкурсов в кубке туризма
-    await call.message.answer_photo(photo=open(r"data\img\holding_cup.jpg",'rb'),caption="Кубок туризма")
+    await call.message.answer_photo(photo=open(r"data\img\holding_cup.jpg",'rb'),caption="Кубок холдинга")
 
 
 @dp.callback_query_handler(text_contains="tourism_cup")
@@ -52,8 +50,7 @@ async def show_sports_cup_result(call: types.CallbackQuery):
     callback_data = call.data
     logging.info(f"{callback_data=}")
 
-    # TODO: добавить клавиатуру с результатами конкурсов в кубке туризма
-    await call.message.answer_photo(photo=open(r"data\img\sports_cup.jpg",'rb'),caption="Кубок туризма\n\nРезультаты конкурсов из категории Кубка спорта смотри ниже   👇",reply_markup=kb_table_sport_menu)
+    await call.message.answer_photo(photo=open(r"data\img\sports_cup.jpg",'rb'),caption="Кубок спорта\n\nРезультаты конкурсов из категории Кубка спорта смотри ниже   👇",reply_markup=kb_table_sport_menu)
 
 
 @dp.callback_query_handler(text_contains="culture_cup")
@@ -64,8 +61,7 @@ async def show_culture_cup_result(call: types.CallbackQuery):
     callback_data = call.data
     logging.info(f"{callback_data=}")
 
-    # TODO: добавить клавиатуру с результатами конкурсов в кубке туризма
-    await call.message.answer_photo(photo=open(r"data\img\culture_cup.jpg",'rb'),caption="Кубок туризма\n\nРезультаты конкурсов из категории Кубка культуры смотри ниже   👇",reply_markup=kb_table_culture_menu)
+    await call.message.answer_photo(photo=open(r"data\img\culture_cup.jpg",'rb'),caption="Кубок культуры\n\nРезультаты конкурсов из категории Кубка культуры смотри ниже   👇",reply_markup=kb_table_culture_menu)
 
 
 @dp.callback_query_handler(text_contains="night_orientation")

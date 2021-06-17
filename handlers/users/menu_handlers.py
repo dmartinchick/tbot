@@ -56,10 +56,10 @@ async def show_what_now(call: types.CallbackQuery):
     # Получение самого раннего и самого познего события фестиваля
     dt_start = SQL.find_date_start()
     dt_end = SQL.find_date_end()
-    # tdate = datetime.now().strftime('%d.%m %H:%M')
-    tdate = datetime(2021, 6, 18, 19, 40).strftime('%d.%m %H:%M')
+    tdate = datetime.now().strftime('%d.%m %H:%M')
+    #tdate = datetime(2021, 6, 18, 19, 40).strftime('%d.%m %H:%M')
     if tdate < dt_start:
-        await call.message.answer("😁 Фестиваль еще не начался, \nвозвращайся сюда 18 июня!")
+        await call.message.answer("😁 Фестиваль еще не начался, \nЗагляни сюда 18 июня!")
     elif tdate > dt_end:
         await call.message.answer("☹ К сожелению, фестиваль уже прошел.\nУвидимся в следующем году! 😁")
     else:
@@ -77,7 +77,7 @@ async def show_what_now(call: types.CallbackQuery):
             contains = event[4]
             
             # отправка сообщения с информацией о конкурсе
-            await call.message.answer_photo(photo=open(address,'rb'),caption="❗" + event_name, reply_markup=kb_event_card_info)
+            await call.message.answer_photo(photo=open(address,'rb'),caption="❗" + event_name)
             # TODO: Реализовать ссылку на подробную информацию о конкурсе
         
 
@@ -97,7 +97,7 @@ async def show_what_next(call: types.CallbackQuery):
         await call.message.answer("☹ К сожелению, фестиваль уже прошел.\nУвидимся в следующем году! 😁")
     else:
         await call.message.answer(text='🕑 Скоро начнется')
-    # TODO: Реализовать отображения ближайшего мерпрития
+    
         rq_next = SQL.what_next()
         for event in rq_next:
             event_name = event[0]
@@ -105,7 +105,7 @@ async def show_what_next(call: types.CallbackQuery):
             time_end = event[2].strftime('%d.%m %H:%M')
             address = event[3]
             contains = event[4]
-        await call.message.answer_photo(photo=open(address,'rb'),caption="❗"+event_name+"\n"+"⏳ Конкурс начинется: "+time_start, reply_markup=kb_event_card_info)
+        await call.message.answer_photo(photo=open(address,'rb'),caption="❗"+event_name+"\n"+"⏳ Конкурс начинется: "+time_start)
 
 
 @dp.callback_query_handler(text_contains="festival_map")
@@ -123,18 +123,15 @@ async def show_festival_map(call: types.CallbackQuery):
 @dp.callback_query_handler(text_contains="full_schedule")
 async def show_full_schedule(call: types.CallbackQuery):
     """ Показивает пользователю все расписание мероприятий
-
-    Args:
-        call (types.CallbackQuery): [description]
     """
     
     await call.answer(cache_time=360)
     callback_data = call.data
     logging.info(f"{callback_data=}")
 
-    await call.message.answer(card.full_schedule())
-    # TODO: Реализвать обращение к базе данных и вывод всего расписания мероприятий
-
+    await call.message.answer_document(open(r'data\docs\shedule.pdf','rb'), caption="📋 Полное описание фестиваля")
+   
+   
 @dp.callback_query_handler(text_contains="tables")
 async def show_table(call: types.CallbackQuery):
     """ Реализует переход к inline меню выбора таблицы кубков
@@ -145,8 +142,7 @@ async def show_table(call: types.CallbackQuery):
     logging.info(f"{callback_data}")
 
     await call.message.answer("Какой кубок тебя интересует?", reply_markup=kb_table_menu)
-    # TODO: длбавить более красивое описани + картинку??
-
+    
 
 @dp.callback_query_handler(text_contains='share')
 async def show_share(call: types.CallbackQuery):
@@ -203,6 +199,3 @@ async def show_events_info(call: types.CallbackQuery):
     logging.info(f"{callback_data}")
 
     await call.message.answer(text="Данная функция еще не реализована")
-
-
-# TODO: cancel
